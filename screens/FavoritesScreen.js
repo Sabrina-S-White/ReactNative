@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from 'react-native'
 import { Avatar, ListItem } from 'react-native-elements'
 import Loading from '../components/LoadingComponent'
@@ -25,8 +26,26 @@ const FavoritesScreen = ({ navigation }) => {
         <View style={styles.deleteView}>
           <TouchableOpacity
             style={styles.deleteTouchable}
-            onPress={() => dispatch(toggleFavorite(campsite.id))}
-          >
+            onPress={() =>
+              Alert.alert(
+                'Delete Favorite?',
+                'Are you sure you wish to delete the favorite campsite ' +
+                  campsite.name +
+                  '?',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log(campsite.name + 'Not Deleted'),
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => dispatch(toggleFavorite(campsite.id)),
+                  },
+                ],
+                { cancelable: false }
+              )
+            }>
             <Text style={styles.deleteText}>Delete</Text>
           </TouchableOpacity>
         </View>
@@ -75,20 +94,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   deleteTouchable: {
     backgroundColor: 'red',
     height: '100%',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   deleteText: {
     color: 'white',
     fontWeight: '700',
     textAlign: 'center',
     fontSize: 16,
-    width: 100
-  }
+    width: 100,
+  },
 })
 
 export default FavoritesScreen
