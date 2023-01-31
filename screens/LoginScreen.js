@@ -27,8 +27,8 @@ const LoginScreen = () => {
   }
 
   useEffect(() => {
-    SecureStore.getItemAsync('userinfo').then((blahblahblah) => {
-      const userinfo = JSON.parse(blahblahblah)
+    SecureStore.getItemAsync('userinfo').then((userdata) => {
+      const userinfo = JSON.parse(userdata)
 
       if (userinfo) {
         setUsername(userinfo.username)
